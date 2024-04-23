@@ -1,0 +1,144 @@
+# BUBBLE SORT
+def performBubbleSort(nums):
+    n = len(nums)
+    for fixThisIndex in range(n - 1, 0, -1):
+        for index in range(fixThisIndex):
+            if nums[index] > nums[index + 1]:
+                temp = nums[index]
+                nums[index] = nums[index + 1]
+                nums[index + 1] = temp
+        print(nums) 
+nums = [12, 2, 34, 20, 56, 43, 45, 100, 89, 50]
+'''For taking user input we use
+nums = list(map(int, input().split()))'''
+print("Before sorting:")
+print(nums)
+performBubbleSort(nums)
+print("After sorting:")
+print(nums)
+
+
+
+#SELECTION SORT
+def performSelectionSort(nums):
+    n = len(nums) 
+    for fixThisIndex in range(n - 1, 0, -1):
+        maxEle = nums[fixThisIndex]
+        maxEleIndex = fixThisIndex 
+        for index in range(fixThisIndex):
+            if nums[index] > maxEle:
+                maxEleIndex = index 
+                maxEle = nums[index]
+        if fixThisIndex != maxEleIndex:
+            temp = nums[maxEleIndex]
+            nums[maxEleIndex] = nums[fixThisIndex]
+            nums[fixThisIndex] = temp
+        print(nums)
+nums = [12, 2, 34, 20, 56, 43, 45, 100, 89, 50]
+print("Before sorting:")
+print(nums)
+performSelectionSort(nums)
+print("After sorting:")
+print(nums)
+
+
+
+# INSERTION SORT
+def performInsertionSort(nums):
+    n = len(nums)
+    for index in range(1, n):
+        temp = nums[index]
+        position = index - 1 
+        while position >= 0 and nums[position] > temp:
+            nums[position + 1] = nums[position]
+            position -= 1 
+        nums[position + 1] = temp 
+        print(nums)
+nums = [12, 2, 34, 20, 56, 43, 45, 100, 89, 50]
+print("Before sorting:")
+print(nums)
+performInsertionSort(nums)
+print("After sorting:")
+print(nums)
+
+
+
+# MERGE SORT
+def mergeTwoArrays(left, mid, right, nums):
+    # sub-array-1 is [left, mid]
+    # sub-array-2 is [mid + 1, right]
+    index1 = left
+    index2 = mid + 1 
+    temp = []
+ 
+    while index1 <= mid and index2 <= right:
+        if nums[index1] > nums[index2]:
+            temp.append(nums[index2])
+            index2 += 1 
+        else:
+            temp.append(nums[index1])
+            index1 += 1 
+ 
+    while index1 <= mid:
+        temp.append(nums[index1])
+        index1 += 1 
+  
+    while index2 <= right:
+        temp.append(nums[index2])
+        index2 += 1 
+    curr = 0
+    for position in range(left, right + 1):
+        nums[position] = temp[curr]
+        curr += 1 
+def divideIt(left, right, nums):
+    #print(left, "-", right)
+    if left >= right:
+        return
+    mid = (left + right) // 2
+    divideIt(left, mid, nums)
+    divideIt(mid + 1, right, nums)
+    mergeTwoArrays(left, mid, right, nums)
+nums = [12, 10, 3, 34, 11, 40, 24]
+print("Before", nums)
+divideIt(0, len(nums) - 1, nums)
+print("After", nums)
+
+
+
+# QUICK SORT
+def findPivotIndex(nums, left, right):
+    # storing the pivot here 
+    pivot = nums[right]
+    # 3-steps:
+    # step-1: Moving pivot element to its actual position 
+    # step-2: Moving all smaller elements to left side of pivot 
+    # step-3: Moving all greater elements to right side of pivot 
+    position = left 
+    for index in range(left, right):
+        if nums[index] < pivot:
+            temp = nums[position]
+            nums[position] = nums[index]
+            nums[index] = temp 
+            position += 1 
+    temp = nums[right]
+    nums[right] = nums[position]
+    nums[position] = temp 
+    return position
+def performQuickSort(nums, left, right): 
+    if left >= right:
+        # whenever there are single length arrays, they are already sorted
+        return 
+    pivotIndex = findPivotIndex(nums, left, right)
+    print(nums)
+    performQuickSort(nums, left, pivotIndex - 1)
+    performQuickSort(nums, pivotIndex + 1, right)
+nums = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+n = len(nums)
+print("Before sorting", nums)
+performQuickSort(nums, 0, n - 1)
+print("After sorting", nums)
+
+
+
+
+
